@@ -1,8 +1,13 @@
 services:
   metabase:
-    extends:
-      file: docker-compose-metabase.yml
-      service: metabase
+    image: metabase/metabase:latest
+    restart: unless-stopped
+    ports:
+      - "5433:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - metabase_data:/metabase.db
 
 volumes:
-  data:
+  metabase_data:
